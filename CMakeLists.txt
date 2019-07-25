@@ -284,7 +284,12 @@ if("${CMAKE_OS_NAME}" STREQUAL "Debian")
 	# Generate a Debian compliant changelog
 	if(GIT_FOUND AND GZIP_CMD AND DATE_CMD)
 		# Get git log info
-		execute_process(COMMAND ${GIT_EXECUTABLE} log --no-merges --pretty=format:"%n  [%an]%n   * %s" --since="last month"
+		execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags --abbrev=0
+			OUTPUT_VARIABLE LAST_TAG
+			WORKING_DIRECTORY .
+			OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+		execute_process(COMMAND ${GIT_EXECUTABLE} log --no-merges --pretty=format:"%n  [%an]%n   * %s" ${LAST_TAG}..HEAD
 			OUTPUT_VARIABLE CHANGELOG
 			WORKING_DIRECTORY .
 			OUTPUT_STRIP_TRAILING_WHITESPACE)

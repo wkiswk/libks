@@ -80,6 +80,7 @@ KS_END_EXTERN_C
 #include "libks/ks_utf8.h"
 #include "libks/ks_atomic.h"
 #include "libks/ks_metrics.h"
+#include "libks/ks_mprintf.h"
 
 /* For Emacs:
  * Local Variables:
